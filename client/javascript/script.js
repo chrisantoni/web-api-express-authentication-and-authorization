@@ -16,6 +16,7 @@ $.ajax({
    }
  })
 
+
 function signup(){
     $.ajax({
       url  : "http://localhost:3000/user/signup",
@@ -25,12 +26,7 @@ function signup(){
         password: $('#password').val()
       },
       success: function(data) {
-        if (data.err) {
-          alert(data.err)
-        }
-        else {
-          alert("Register success! Now Login!")
-        }
+          alert(data)
       }
     })
 }
@@ -43,14 +39,13 @@ function login(){
         username: $('#username').val(),
         password: $('#password').val()
       },
-      success: function(data) {
-        if (data.err) {
-          alert(data.err)
-        }
-        else {
-          localStorage.setItem("token", data.token)
-          localStorage.setItem("username", data.username)
-          window.location.href = 'http://127.0.0.1:8080/home.html'
+      success: function(data){
+        console.log(data);
+        if (data == 'wrong username or password') {
+          alert('wrong username or password')
+        }else{
+          localStorage.setItem('token', data);
+          window.location.href="http://127.0.0.1:8080/home.html"
         }
       }
     })
@@ -58,5 +53,5 @@ function login(){
 
 function logout(){
   localStorage.clear()
-  window.location.href = 'http://127.0.0.1:8080/sign_in.html'
+  window.location.href = 'http://127.0.0.1:8080'
 }
